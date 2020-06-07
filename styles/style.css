@@ -1,0 +1,105 @@
+.content-container {
+  align-items: center;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-around;
+}
+
+.title-wrapper {
+  width: auto;
+  height: 40%;
+}
+
+header {
+  background-color: hsl(5, 88%, 67%);
+  border: 0.25rem solid black;
+  border-radius: 3em;
+  margin: 2rem;
+  padding: 2.25rem 4rem;
+}
+
+h1 {
+  font-size: 3.19em;
+  font-weight: 400;
+  letter-spacing: 3px;
+  margin: 0;
+}
+
+.calculator-container {
+  height: auto;
+  width: 40%;
+}
+
+.calculator {
+  border: 0.15rem solid white;
+  border-radius: 5rem;
+  display: grid;
+  grid-template-areas:
+    "results"
+    "buttons";
+  grid-template-columns: auto;
+  grid-template-rows: 25% 75%;
+  justify-items: center;
+}
+
+.display-result {
+  align-self: center;
+  grid-area: results;
+  justify-self: end;
+}
+
+.buttons-wrapper {
+  align-items: center;
+  display: grid;
+  grid-area: buttons;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  justify-items: center;
+}
+
+.other-buttons {
+  grid-column: 1 / 5;
+  grid-row: 1 / 2;
+}
+
+.numbers-buttons {
+  grid-column: 2 / 4;
+  grid-row: 2 / 6;
+}
+
+.symbols-buttons {
+  grid-column: 4 / 5;
+  grid-row: 1 / 6;
+}
+
+.symbols-buttons > button {
+  padding: 1.5rem;
+}
+
+button {
+  border-radius: 0.5rem;
+  height: fit-content;
+  margin: 0.75rem;
+  padding: 2rem;
+  width: fit-content;
+}
+
+html {
+  font-size: 62.5%;
+  height: 100%;
+}
+
+body {
+  background-color: hsl(37, 98%, 80%);
+  font-family: "Montserrat", Helvetica, sans-serif;
+  font-size: 1.6rem;
+  min-height: 100%;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
