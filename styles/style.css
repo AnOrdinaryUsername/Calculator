@@ -1,9 +1,8 @@
 .content-container {
   align-items: center;
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: column wrap;
   justify-content: space-around;
-  height: 100vh;
 }
 
 .title-wrapper {
@@ -15,7 +14,7 @@ header {
   background-color: hsl(5, 88%, 67%);
   border: 0.25rem solid black;
   border-radius: 3em;
-  margin: 2rem;
+  margin: 1.5rem 2rem;
   padding: 2.25rem 4rem;
 }
 
@@ -27,13 +26,13 @@ h1 {
 }
 
 .calculator-container {
-  height: 100%;
-  width: 40%;
+  height: auto;
+  width: auto;
 }
 
 .calculator {
-  border: 0.15rem solid white;
   border-radius: 5rem;
+  box-shadow: 1.2rem 1.2rem 1rem 0 hsl(37, 98%, 32%);
   display: grid;
   grid-template-areas:
     "results"
@@ -41,8 +40,7 @@ h1 {
   grid-template-columns: auto;
   grid-template-rows: 25% 75%;
   justify-items: center;
-  height: 100%;
-  /* text-align: unset; */
+  height: 60rem;
 }
 
 .display-result {
@@ -57,6 +55,7 @@ h1 {
 .display-color {
   align-content: center;
   background-color: hsl(157, 51%, 65%);
+  border: 0.9rem solid rgb(73, 78, 80);
   display: flex;
   flex-flow: row wrap;
   height: 60%;
@@ -66,75 +65,239 @@ h1 {
 }
 
 .results {
-  font-size: auto;
+  font-family: "VT323", monospace;
+  font-size: 2.33em;
+  text-align: center;
+  width: 100%;
 }
 
 .buttons-wrapper {
-  align-items: center;
+  align-items: end;
+  background-color: hsl(200, 5%, 20%);
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
   display: grid;
-  gap: 0.5rem;
   grid-area: buttons;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  justify-items: center;
-  background-color: hsl(200, 5%, 30%);
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  justify-items: end;
+  padding: 2rem;
   width: 100%;
 }
 
-.delete-buttons {
-  display: grid;
-  column-gap: 1.33rem;
+#clear {
   grid-column: 1 / 3;
   grid-row: 1 / 2;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr;
-  height: 100%;
-  width: 100%;
-  justify-items: stretch;
-  align-items: center;
 }
 
-.numbers-buttons {
-  align-items: stretch;
-  display: grid;
-  gap: 1.33rem;
-  grid-column: 1 / 3;
-  grid-row: 2 / 4;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  justify-items: stretch;
-  width: 100%;
-  height: 100%;
-}
-
-.symbols-buttons {
-  display: grid;
-  /* gap: 1.33rem; */
+#delete {
   grid-column: 3 / 4;
-  grid-row: 1 / 4;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(5, 1fr);
-  justify-items: stretch;
-  align-items: end;
-  /* margin: 5rem; */
-  /* margin-bottom: 0; */
-  width: 100%;
-  height: 100%;
+  grid-row: 1 / 2;
+  justify-self: start;
 }
 
-.symbols-buttons > button {
-  font-size: 1.78em;
-  font-weight: 900;
-  padding: 1.5rem;
-  /* margin: 4rem 4rem 0rem 4rem; */
+#sq-rt {
+  grid-column: 4 / 5;
+  grid-row: 1 / 2;
+}
+
+#7 {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+}
+
+#8 {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
+#9 {
+  grid-column: 3 / 4;
+  grid-row: 2 / 3;
+}
+
+#4 {
+  grid-column: 1 / 2;
+  grid-row: 3 / 4;
+}
+
+#5 {
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+}
+
+#6 {
+  grid-column: 3 / 4;
+  grid-row: 3 / 4;
+}
+
+#1 {
+  grid-column: 1 / 2;
+  grid-row: 4 / 5;
+}
+
+#2 {
+  grid-column: 2 / 3;
+  grid-row: 4 / 5;
+}
+
+#3 {
+  grid-column: 3 / 4;
+  grid-row: 4 / 5;
+}
+
+#0 {
+  grid-column: 1 / 2;
+  grid-row: 5 / 6;
+}
+
+#decimal {
+  grid-column: 2 / 3;
+  grid-row: 5 / 6;
+}
+
+#squared {
+  grid-column: 4 / 5;
+  grid-row: 2 / 3;
+}
+
+#reciprocal {
+  grid-column: 4 / 5;
+  grid-row: 3 / 4;
+}
+
+#exponent {
+  grid-column: 4 / 5;
+  grid-row: 4 / 5;
+}
+
+#negative {
+  grid-column: 3 / 4;
+  grid-row: 5 / 6;
+}
+
+#division {
+  grid-column: 5 / 6;
+  grid-row: 1 / 2;
+}
+
+#multiplication {
+  grid-column: 5 / 6;
+  grid-row: 2 / 3;
+}
+
+#subtraction {
+  grid-column: 5 / 6;
+  grid-row: 3 / 4;
+}
+
+#addition {
+  grid-column: 5 / 6;
+  grid-row: 4 / 5;
+}
+
+#compute {
+  grid-column: 4 / 6;
+  grid-row: 5 / 6;
+  background: hsl(115, 44%, 62%);
+  color: black;
+  box-shadow: 0 6px hsl(115, 44%, 42%);
+}
+
+#compute:hover {
+  box-shadow: 0 4px hsl(115, 44%, 42%);
+}
+
+#compute:active {
+  box-shadow: 0 0 hsl(115, 44%, 42%);
+}
+
+.btn-2b:hover {
+  box-shadow: 0 4px #ab3c3c;
+  top: 2px;
+}
+
+.btn-2b:active {
+  box-shadow: 0 0 #ab3c3c;
+  top: 6px;
+}
+
+.btn-2b::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.btn-2b {
+  border-radius: 20px;
+}
+
+.btn-2 {
+  background: #cb4e4e;
+  color: black;
+  box-shadow: 0 6px #ab3c3c;
+  transition: none;
+  width: -webkit-fill-available; /* remove later */
+}
+
+.top-buttons {
+  align-self: center;
+  justify-self: center;
+}
+
+.left-buttons {
+  align-self: start;
+  height: auto;
+  /* width: 5em; */
+  background: hsl(37, 1%, 73%);
+  color: black;
+  box-shadow: 0 6px hsl(37, 1%, 49%);
+}
+
+.left-buttons:hover {
+  box-shadow: 0 4px hsl(37, 1%, 49%);
+}
+
+.left-buttons:active {
+  box-shadow: 0 0 hsl(37, 1%, 49%);
+}
+
+.right-buttons {
+  align-self: start;
+  justify-self: start;
+  background: hsl(202, 44%, 62%);
+  color: black;
+  box-shadow: 0 6px hsl(202, 44%, 42%);
+}
+
+.right-buttons:hover {
+  box-shadow: 0 4px hsl(202, 44%, 42%);
+}
+
+.right-buttons:active {
+  box-shadow: 0 0 hsl(202, 44%, 42%);
 }
 
 button {
+  display: inline-block;
+  border: none;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  outline: none;
+  position: relative;
   border-radius: 0.5rem;
+  font-size: 1.78rem;
+  font-weight: 900;
   height: fit-content;
-  /* margin: 0.75rem; */
+  margin: 0.75rem; /* 1.25rem? */
   padding: 2rem;
-  /* width: fit-content; */
+  width: fit-content;
 }
 
 html {
