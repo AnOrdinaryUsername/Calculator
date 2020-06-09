@@ -25,6 +25,7 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
       rel="stylesheet"
     />
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <link href="styles/normalize.css" rel="stylesheet" />
     <link href="styles/style.css" rel="stylesheet" />
   </head>
@@ -43,32 +44,32 @@
             </div>
           </div>
           <div class="buttons-wrapper">
-            <div class="delete-buttons">
-              <button>CLEAR</button>
-              <button>DEL</button>
-              <button>&#8730</button>
-            </div>
-            <div class="numbers-buttons">
-              <button>7</button>
-              <button>8</button>
-              <button>9</button>
-              <button>4</button>
-              <button>5</button>
-              <button>6</button>
-              <button>1</button>
-              <button>2</button>
-              <button>3</button>
-              <button>0</button>
-              <button>.</button>
-              <button>( - )</button>
-            </div>
-            <div class="symbols-buttons">
-              <button>&divide;</button>
-              <button>&times;</button>
-              <button>-</button>
-              <button>+</button>
-              <button>=</button>
-            </div>
+              <!-- Remove operands buttons -->
+              <button id="clear" class="top-buttons btn-2 btn-2b">CLEAR</button>
+              <button id="delete" class="top-buttons btn-2 btn-2b">DEL</button>
+              <!-- Operand buttons-->
+              <button id="7" class="left-buttons btn-2 btn-2b">7</button>
+              <button id="8" class="left-buttons btn-2 btn-2b">8</button>
+              <button id="9" class="left-buttons btn-2 btn-2b">9</button>
+              <button id="4" class="left-buttons btn-2 btn-2b">4</button>
+              <button id="5" class="left-buttons btn-2 btn-2b">5</button>
+              <button id="6" class="left-buttons btn-2 btn-2b">6</button>
+              <button id="1" class="left-buttons btn-2 btn-2b">1</button>
+              <button id="2" class="left-buttons btn-2 btn-2b">2</button>
+              <button id="3" class="left-buttons btn-2 btn-2b">3</button>
+              <button id="0" class="left-buttons btn-2 btn-2b">0</button>
+              <button id="decimal" class="left-buttons btn-2 btn-2b">.</button>
+              <button id="negative" class="left-buttons btn-2 btn-2b">( - )</button>
+              <button id="squared" class="right-buttons btn-2 btn-2b">x<sup>2</sup></button>
+              <button id="reciprocal" class="right-buttons btn-2 btn-2b">x<sup>-1</sup></button>
+              <button id="exponent" class="right-buttons btn-2 btn-2b">^</button>
+              <!-- Operation buttons -->
+              <button id="sq-rt" class="right-buttons btn-2 btn-2b">&#8730</button>
+              <button id="division" class="right-buttons btn-2 btn-2b">&divide;</button>
+              <button id="multiplication" class="right-buttons btn-2 btn-2b">&times;</button>
+              <button id="subtraction" class="right-buttons btn-2 btn-2b">-</button>
+              <button id="addition" class="right-buttons btn-2 btn-2b">+</button>
+              <button id="compute" class="right-buttons btn-2 btn-2b">=</button>
           </div>
         </div>
       </div>
