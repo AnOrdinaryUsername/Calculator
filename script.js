@@ -9,7 +9,7 @@ class CharCounter {
     this.count = count;
   }
 
-  /** @param {string} str The string added to display.
+  /** @param {string} str The string added to the display.
     * @return {number} */
   incrementCount(str) {
     return this.count += str.length;
@@ -42,13 +42,15 @@ const deleteLastChar = (object) => {
   object.decrementCount();
 };
 
-const deletion = (object) => {
+const removeCharButtons = (object) => {
   document.querySelector('#clear').addEventListener('click', function(e) {
     clearDisplay(object);
+    e.stopPropagation();
   });
 
   document.querySelector('#delete').addEventListener('click', function(e) {
     deleteLastChar(object);
+    e.stopPropagation();
   });
 };
 
@@ -56,11 +58,23 @@ const denkoIsPresent = () => {
   return (document.querySelector('.results').textContent === '(´・ω・`)');
 };
 
-const adjustText = () => {
+const calculatorErrorMessage = () => {
+  const msg = document.querySelector('.results').textContent;
+  return (msg === 'ERR:SYNTAX' || msg === 'ERR:DIVIDE BY 0');
+};
+
+const adjustTextStyle = () => {
   const display = document.querySelector('.results');
   display.style.textAlign = 'end';
   display.style.fontSize = '6rem';
   display.style.padding = '1rem';
+};
+
+const resetTextStyle = () => {
+  const display = document.querySelector('.results');
+  display.style.removeProperty('text-align');
+  display.style.removeProperty('font-size');
+  display.style.removeProperty('padding');
 };
 
 const updateDisplay = (object, string) => {
@@ -73,20 +87,22 @@ const updateDisplay = (object, string) => {
 };
 
 const checkParentheses = (object) => {
-  const oldString = Array.from(document.querySelector('.results').textContent);
-  const firstParen = (element) => element === '(';
+  const string = document.querySelector('.results').textContent;
+  // Filter out everything besides parentheses using a regex
+  const newStr = string.replace(/[^()]/g, '');
 
-  if (oldString.findIndex(firstParen) === -1) updateDisplay(object, '(');
-  else updateDisplay(object, ')');
+  if (newStr === '') updateDisplay(object, '(');
+  else if (newStr[newStr.length - 1] === '(') updateDisplay(object, ')');
+  else if (newStr[newStr.length - 1] === ')') updateDisplay(object, '(');
 };
 
-const pressButtonEvent = (object) => {
+const operationButtons = (object) => {
   document.querySelector('.buttons-wrapper').addEventListener('click',
       function(e) {
         if (e.target.tagName == 'DIV') return;
-        if (denkoIsPresent()) clearDisplay(object);
+        if (denkoIsPresent() || calculatorErrorMessage()) clearDisplay(object);
 
-        adjustText();
+        adjustTextStyle();
         const button = e.target.id;
 
         if (!isNaN(button)) {
@@ -114,12 +130,35 @@ const pressButtonEvent = (object) => {
       });
 };
 
+const calculateOperations = (...charArray) => {
+
+};
+
+const computeResultButton = (object) => {
+  document.querySelector('#compute').addEventListener('click', function(e) {
+    const string = document.querySelector('.results').textContent;
+    const newString = string.replace(/[/^]/g, '**');
+
+    clearDisplay(object);
+    e.stopPropagation();
+
+    if (isNaN(newString[newString.length - 1]) || newString === '') {
+      resetTextStyle();
+      updateDisplay(object, 'ERR:SYNTAX');
+    } else {
+      const charArray = newString.split('');
+      updateDisplay(object, calculateOperations(charArray));
+    }
+  });
+};
+
 const main = () => {
   const INIT = 0;
   const displayScreen = new CharCounter(INIT);
 
-  deletion(displayScreen);
-  pressButtonEvent(displayScreen);
+  removeCharButtons(displayScreen);
+  operationButtons(displayScreen);
+  computeResultButton(displayScreen);
 };
 
 main();
