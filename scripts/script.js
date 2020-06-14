@@ -130,6 +130,11 @@ const operationButtons = (object) => {
       });
 };
 
+const isParenthesesPresent = (string) => {
+  return (string[string.length - 1] === '(' ||
+          string[string.length - 1] === ')');
+};
+
 const computeResultButton = (object) => {
   document.querySelector('#compute').addEventListener('click', function(e) {
     const string = document.querySelector('.results').textContent;
@@ -137,7 +142,8 @@ const computeResultButton = (object) => {
     clearDisplay(object);
     e.stopPropagation();
 
-    if (isNaN(string[string.length - 1]) || string === '') {
+    if ( (isNaN(string[string.length - 1]) && isParenthesesPresent(string) ) ||
+            string === '') {
       resetTextStyle();
       updateDisplay(object, 'ERR:SYNTAX');
     } else {
