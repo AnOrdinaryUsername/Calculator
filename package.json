@@ -1,0 +1,23 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "A simple calculator with basic mathematical operations.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnOrdinaryUsername/Calculator.git"
+  },
+  "author": "AnOrdinaryUsername",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnOrdinaryUsername/Calculator/issues"
+  },
+  "homepage": "https://github.com/AnOrdinaryUsername/Calculator#readme",
+  "devDependencies": {
+    "eslint": "^7.2.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}
