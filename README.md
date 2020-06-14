@@ -5,11 +5,11 @@
 
 </a>
 </p>
-<p align="center" A simple calculator 🖩 with basic mathematical operations. </p>
-
-<p align="center" **Product of mankind's quest to alleviate the tediousness of math, all in a compact web format** </p>
+<p align="center"> A simple calculator 🖩 with basic mathematical operations. </p>
 
 ## What it can do
+
+**Product of mankind's quest to alleviate the tediousness of math, all in a compact web format**
 
 - Addition
 - Subtraction
