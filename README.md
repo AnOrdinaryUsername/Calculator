@@ -7,7 +7,7 @@
 </p>
 <p align="center" A simple calculator 🖩 with basic mathematical operations. </p>
 
-**Product of mankind's quest to alleviate the tediousness of math, all in a compact web format**
+<p align="center" **Product of mankind's quest to alleviate the tediousness of math, all in a compact web format** </p>
 
 ## What it can do
 
@@ -18,7 +18,7 @@
 - Exponents
 - Square root
 
-Along with <b>operator precedence</b> and <b>decimals</b>
+Along with <b>operator precedence</b> and <b>decimals</b>.
 
 ## Install
 
