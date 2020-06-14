@@ -130,24 +130,20 @@ const operationButtons = (object) => {
       });
 };
 
-const calculateOperations = (...charArray) => {
-
-};
-
 const computeResultButton = (object) => {
   document.querySelector('#compute').addEventListener('click', function(e) {
     const string = document.querySelector('.results').textContent;
-    const newString = string.replace(/[/^]/g, '**');
 
     clearDisplay(object);
     e.stopPropagation();
 
-    if (isNaN(newString[newString.length - 1]) || newString === '') {
+    if (isNaN(string[string.length - 1]) || string === '') {
       resetTextStyle();
       updateDisplay(object, 'ERR:SYNTAX');
     } else {
-      const charArray = newString.split('');
-      updateDisplay(object, calculateOperations(charArray));
+      // Parser provided by Jison (https://zaa.ch/jison/).
+      // More details at how to get the parse file at bottom of jison.js file.
+      updateDisplay(object, compute.parse(string));
     }
   });
 };
