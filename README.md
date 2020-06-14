@@ -7,7 +7,7 @@
 </p>
 <p align="center" A simple calculator 🖩 with basic mathematical operations. </p>
 
-**Product of mankind's quest to alleviate the tediousness of math, all in a compact web format **
+**Product of mankind's quest to alleviate the tediousness of math, all in a compact web format**
 
 ## What it can do
 
