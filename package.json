@@ -1,5 +1,5 @@
 {
-  "name": "calculator",
+  "name": "ordinary-calculator",
   "version": "1.0.0",
   "description": "A simple calculator with basic mathematical operations.",
   "main": "script.js",
