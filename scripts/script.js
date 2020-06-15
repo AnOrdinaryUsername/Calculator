@@ -175,9 +175,12 @@ const unsupportedError = (string) => {
   const closeParenNumber = string.match(/\)[0-9]/g, '');
   // Check for number in front of square root (e.g. '2√4' )
   const numberSquareRoot = string.match(/\d[√]/g, '');
+  // Quick note, this regex is different as it matches number, decimal, then
+  // number. Null gives the unwanted result ('.2' <-- no number in front).
+  const decimalNumber = string.match(/\d\.[0-9]/g, '');
 
   return (numberOpenParen !== null || closeParenNumber !== null ||
-          numberSquareRoot !== null) ? true : false;
+          numberSquareRoot !== null || decimalNumber === null) ? true : false;
 };
 
 const computeResultButton = (object) => {
