@@ -60,21 +60,19 @@ const denkoIsPresent = () => {
 
 const calculatorErrorMessage = () => {
   const msg = document.querySelector('.results').textContent;
-  return (msg === 'ERR:SYNTAX' || msg === 'ERR:DIVIDE BY 0');
+  return (msg === 'ERR:SYNTAX' || msg === 'ERR:DIVIDE BY 0' ||
+          msg === 'ERR:UNSUPPORTED');
 };
 
 const adjustTextStyle = () => {
   const display = document.querySelector('.results');
-  display.style.textAlign = 'end';
-  display.style.fontSize = '6rem';
-  display.style.padding = '1rem';
+  display.setAttribute('style',
+      'text-align: end; font-size: 6rem; padding: 1rem;');
 };
 
 const resetTextStyle = () => {
   const display = document.querySelector('.results');
-  display.style.removeProperty('text-align');
-  display.style.removeProperty('font-size');
-  display.style.removeProperty('padding');
+  display.removeAttribute('style');
 };
 
 const updateDisplay = (object, string) => {
@@ -83,6 +81,7 @@ const updateDisplay = (object, string) => {
   const existingChar = document.querySelector('.results').textContent;
   document.querySelector('.results').textContent =
           existingChar.concat('', string);
+
   object.incrementCount(string);
 };
 
@@ -110,29 +109,73 @@ const operationButtons = (object) => {
 
           const index = parseInt(button);
           updateDisplay(object, `${numberButton[index]}`);
-        } else if (isNaN(button)) {
-          if (button === 'decimal') updateDisplay(object, '.');
-          // Quick note, parentheses has a different function from the rest
-          else if (button === 'parentheses') checkParentheses(object);
-          else if (button === 'squared') updateDisplay(object, '^2');
-          else if (button === 'reciprocal') updateDisplay(object, '^-1');
-          else if (button === 'exponent') updateDisplay(object, '^');
-          else if (button === 'addition') updateDisplay(object, '+');
-          else if (button === 'subtraction') updateDisplay(object, '-');
-          else if (button === 'sq-rt') {
+          return;
+        }
+
+        switch (button) {
+          case 'decimal':
+            updateDisplay(object, '.');
+            break;
+          case 'parentheses':
+            // Quick note, parentheses has a different function from the rest
+            checkParentheses(object);
+            break;
+          case 'squared':
+            updateDisplay(object, '^2');
+            break;
+          case 'reciprocal':
+            updateDisplay(object, '^-1');
+            break;
+          case 'exponent':
+            updateDisplay(object, '^');
+            break;
+          case 'addition':
+            updateDisplay(object, '+');
+            break;
+          case 'subtraction':
+            updateDisplay(object, '-');
+            break;
+          case 'sq-rt':
             updateDisplay(object, String.fromCharCode(0x221A));
-          } else if (button === 'division') {
+            break;
+          case 'division':
             updateDisplay(object, String.fromCharCode(0x00F7));
-          } else if (button === 'multiplication') {
+            break;
+          case 'multiplication':
             updateDisplay(object, '*');
-          }
+            break;
         }
       });
 };
 
-const isParenthesesPresent = (string) => {
-  return (string[string.length - 1] === '(' ||
-          string[string.length - 1] === ')');
+// Check if beginning of string is any symbol besides square-root or negative,
+// end of string is a math symbol, string has an unfinished bracket, or
+// string is empty, and then output the appropriate boolean value
+const syntaxError = (string) => {
+  const firstChar = string[0];
+
+  switch (firstChar) {
+    case '+':
+    case '-':
+    case '*':
+    case '÷':
+    case '^':
+      return true;
+  }
+
+  return ( ( isNaN(string[string.length - 1]) &&
+          string[string.length - 1] !== ')' ) ||
+          string[string.length - 2] === '(' || string === '');
+};
+
+// Unsupported operations are limited to only multiplication between parentheses
+const unsupportedError = (string) => {
+  // Check for number followed by open parenthesis (e.g. '3(' )
+  const numberOpenParen = string.match(/\d[(]/g, '');
+  // Check for closed parenthesis followed by number (e.g. ')3; )
+  const closeParenNumber = string.match(/\)[0-9]/g, '');
+
+  return (numberOpenParen !== null || closeParenNumber !== null) ? true : false;
 };
 
 const computeResultButton = (object) => {
@@ -142,15 +185,24 @@ const computeResultButton = (object) => {
     clearDisplay(object);
     e.stopPropagation();
 
-    if ( (isNaN(string[string.length - 1]) && isParenthesesPresent(string) ) ||
-            string === '') {
+    // Check for division by 0
+    if (string.includes('÷0')) {
+      resetTextStyle();
+      updateDisplay(object, 'ERR:DIVIDE BY 0');
+      return;
+    } else if (syntaxError(string)) {
       resetTextStyle();
       updateDisplay(object, 'ERR:SYNTAX');
-    } else {
-      // Parser provided by Jison (https://zaa.ch/jison/).
-      // More details at how to get the parse file at bottom of jison.js file.
-      updateDisplay(object, compute.parse(string));
+      return;
+    } else if (unsupportedError(string)) {
+      resetTextStyle();
+      updateDisplay(object, 'ERR:UNSUPPORTED');
+      return;
     }
+
+    // Parser provided by Jison (https://zaa.ch/jison/).
+    // More details at how to get the parse file at bottom of jison.js file.
+    updateDisplay(object, compute.parse(string));
   });
 };
 
