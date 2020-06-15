@@ -156,7 +156,6 @@ const syntaxError = (string) => {
 
   switch (firstChar) {
     case '+':
-    case '-':
     case '*':
     case '÷':
     case '^':
@@ -172,10 +171,13 @@ const syntaxError = (string) => {
 const unsupportedError = (string) => {
   // Check for number followed by open parenthesis (e.g. '3(' )
   const numberOpenParen = string.match(/\d[(]/g, '');
-  // Check for closed parenthesis followed by number (e.g. ')3; )
+  // Check for closed parenthesis followed by number (e.g. ')3 )
   const closeParenNumber = string.match(/\)[0-9]/g, '');
+  // Check for number in front of square root (e.g. '2√4' )
+  const numberSquareRoot = string.match(/\d[√]/g, '');
 
-  return (numberOpenParen !== null || closeParenNumber !== null) ? true : false;
+  return (numberOpenParen !== null || closeParenNumber !== null ||
+          numberSquareRoot !== null) ? true : false;
 };
 
 const computeResultButton = (object) => {
