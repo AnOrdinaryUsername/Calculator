@@ -167,39 +167,41 @@ const syntaxError = (string) => {
           string[string.length - 2] === '(' || string === '');
 };
 
-// Unsupported operations are limited to only multiplication between parentheses
+// Unsupported operations which include multiplication around parentheses,
+// multiplication with square roots, and no number in front of decimal
 const unsupportedError = (string) => {
   // Check for number followed by open parenthesis (e.g. '3(' )
   const numberOpenParen = string.match(/\d[(]/g, '');
   // Check for closed parenthesis followed by number (e.g. ')3 )
-  const closeParenNumber = string.match(/\)[0-9]/g, '');
+  const closeParenNumber = string.match(/\)[\d]/g, '');
   // Check for number in front of square root (e.g. '2√4' )
   const numberSquareRoot = string.match(/\d[√]/g, '');
-  // Quick note, this regex is different as it matches number, decimal, then
-  // number. Null gives the unwanted result ('.2' <-- no number in front).
-  const decimalNumber = string.match(/\d\.[0-9]/g, '');
+  // Check for any symbol in front of decimal (e.g. '+.2')
+  const decimalNumber = string.match(/\W\.[\d]/g, ''); ;
 
   return (numberOpenParen !== null || closeParenNumber !== null ||
-          numberSquareRoot !== null || decimalNumber === null) ? true : false;
+          numberSquareRoot !== null || decimalNumber !== null) ? true : false;
 };
 
 const computeResultButton = (object) => {
   document.querySelector('#compute').addEventListener('click', function(e) {
     const string = document.querySelector('.results').textContent;
+    // Replace all division symbols with forward slash
+    const newString = string.replace(/÷/g, '/');
 
     clearDisplay(object);
     e.stopPropagation();
 
     // Check for division by 0
-    if (string.includes('÷0')) {
+    if (newString.includes('/0')) {
       resetTextStyle();
       updateDisplay(object, 'ERR:DIVIDE BY 0');
       return;
-    } else if (syntaxError(string)) {
+    } else if (syntaxError(newString)) {
       resetTextStyle();
       updateDisplay(object, 'ERR:SYNTAX');
       return;
-    } else if (unsupportedError(string)) {
+    } else if (unsupportedError(newString)) {
       resetTextStyle();
       updateDisplay(object, 'ERR:UNSUPPORTED');
       return;
@@ -207,7 +209,7 @@ const computeResultButton = (object) => {
 
     // Parser provided by Jison (https://zaa.ch/jison/).
     // More details at how to get the parse file at bottom of jison.js file.
-    updateDisplay(object, compute.parse(string));
+    updateDisplay(object, compute.parse(newString));
   });
 };
 
